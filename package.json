@@ -1,0 +1,19 @@
+{
+  "name": "coursework-websocketclient",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/latiertiw/CourseWork-WebsocketClient.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/latiertiw/CourseWork-WebsocketClient/issues"
+  },
+  "homepage": "https://github.com/latiertiw/CourseWork-WebsocketClient#readme"
+}
