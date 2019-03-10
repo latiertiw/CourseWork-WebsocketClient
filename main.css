@@ -1,0 +1,182 @@
+*{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin :0;
+    padding: 0;
+    
+}
+
+body
+{
+    background: linear-gradient(45deg,rgb(102, 36, 116),rgb(81, 129, 101));
+    height: 1000px;
+}
+
+header {
+width: 100%;
+height: 150px;
+background-color: rgba(255, 255, 255, 0.308);
+}
+
+.wrapper {
+    height: 100%;
+    width: 100%;
+}
+
+.statusBlock{
+   
+    position: fixed;
+    right: 0px;
+    height: 60px;
+    width: 140px;
+    background-color: rgba(255, 255, 255, 0.637);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.consoleToggle {
+    position: fixed;
+    right: 0px;
+    top: 65px;
+    height: 60px;
+    width: 140px;
+    background-color: rgba(255, 255, 255, 0.637);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+ .consoleToggle:hover{
+    background-color: rgba(255, 255, 255, 0.815);
+    cursor: pointer;
+ }
+
+.logo {
+    display: flex;
+    color: white;
+    font-size: 50px;
+   align-items: center;
+   justify-content: center;
+  
+   height: 100%;
+   width: 450px;
+}
+
+
+
+.consoleBlock {
+    margin-top: 15px;
+    display: flex;
+    width: 100%;
+    align-items: center; 
+ justify-content: flex-end;
+}
+
+            #consoleInput {
+                height: 150px;
+                width: 565px;
+                font-size: 30px;
+                padding-left: 15px;
+            
+            }
+
+            #sendMessage {
+                font-size: 15px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 1px solid black;
+                height: 153px;
+                width: 100px;
+                cursor: pointer;
+            background-color: white;
+            }
+            #sendMessage:hover{
+                background-color: rgb(170, 169, 169);
+            }
+
+            #consoleOutput {
+                
+                margin-left: 100px;
+                box-sizing: border-box;
+            padding: 7px;
+                display: block;
+                height: 155px;
+                width: 450px;
+            
+                border: 3px solid rgb(0, 0, 0);
+            font-size: 20px;
+            }
+            #cleanConsole {
+            
+            height:153px ;
+            width: 40px;
+            margin-left: 5px;
+            background-color: #fff;
+            }
+            #cleanConsole:hover{
+                cursor: pointer;
+                background-color: rgba(248, 206, 206, 0.993);
+            }
+
+
+.loginBlock{
+    display: flex;
+    margin-top: 45px;
+    width: 100%;
+    height: 150px;
+    background-color: rgba(142, 143, 142, 0.603);
+    align-items: center;
+   
+}
+
+   .autorisationStatus {
+       margin-left: 40px;
+       border-bottom: 1px solid rgba(0, 0, 0, 0.336);
+       border-top: 1px solid rgba(0, 0, 0, 0.37);
+       font-size: 25px;
+       color: white;
+        height: 90px;
+        width: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #loginInput {
+        border: 2px solid rgba(0, 0, 0, 0.534);
+        font-size: 20px;
+        padding-left: 20px;
+    margin-left: 90px;
+    height: 40px;
+    width: 250px;
+    }
+    #passwordInput {
+        border: 2px solid rgba(0, 0, 0, 0.534);
+        font-size: 20px;
+        padding-left: 20px;
+        margin-left: 20px;
+        height: 40px;
+        width: 250px;
+    }
+    #sendAutorisation {
+        margin-left: 40px;
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 60px;
+        width: 120px;
+        
+    }
+    #sendAutorisation:hover {
+        background-color: rgba(255, 255, 255, 0.356);
+        cursor: pointer;
+
+    }
+
+.menuBlock {
+  
+    
+    margin-top: 55px;
+    width: 100%;
+    height: 400px;
+    background-color: rgba(255, 255, 255, 0.603);
+}

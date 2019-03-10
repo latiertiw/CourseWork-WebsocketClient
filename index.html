@@ -7,8 +7,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css">
     <script src="index.js"></script>
+    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
 </head>
-<body>
+<body>    
+    <div class="wrapper">
+        <div class="statusBlock"></div>
+        <div class="consoleToggle" onclick="toogleConsole()">Toogle Console</div>
+
+        <header>
+            <div class="logo">COURSEWORK</div>
+        </header>
+
+        <main>
+             <div class="consoleBlock">
+               <input type="text" id="consoleInput" />
+               <div id="sendMessage" onclick="send()">ОТПРАВИТЬ</div>
+               <textarea id="consoleOutput" ></textarea>
+               <div id="cleanConsole" onclick="cleanConsole()"></div>
+             </div>
+             <div class="loginBlock">
+                 <div class="autorisationStatus">Авторизируйтесь</div>
+                <input type="text" id="loginInput" />
+                <input type="text" id="passwordInput" />
+                <div id="sendAutorisation" onclick="sendAutorisation()">ОТПРАВИТЬ</div>
+             </div>
+             
+        
+        </main>
+       
+       
+            
+           
+    </div>
+
+
     
 </body>
 </html>
