@@ -15,5 +15,6 @@
   "bugs": {
     "url": "https://github.com/latiertiw/CourseWork-WebsocketClient/issues"
   },
-  "homepage": "https://github.com/latiertiw/CourseWork-WebsocketClient#readme"
+  "homepage": "https://github.com/latiertiw/CourseWork-WebsocketClient#readme",
+  "dependencies": {}
 }

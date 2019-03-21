@@ -6,13 +6,17 @@
     <title>Coursework</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <link rel="stylesheet" href="styles_main.css">
+    <link rel="stylesheet" href="styles_footer.css">
     <script src="index.js"></script>
-    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+   <!-- <script src="http://code.jquery.com/jquery-1.8.3.js"></script>  -->
+   <script src="jquery.js"></script>
 </head>
 <body>    
     <div class="wrapper">
         <div class="statusBlock"></div>
         <div class="consoleToggle" onclick="toogleConsole()">Toogle Console</div>
+        
 
         <header>
             <div class="logo">COURSEWORK</div>
@@ -20,20 +24,59 @@
 
         <main>
              <div class="consoleBlock">
-               <input type="text" id="consoleInput" />
-               <div id="sendMessage" onclick="send()">ОТПРАВИТЬ</div>
-               <textarea id="consoleOutput" ></textarea>
-               <div id="cleanConsole" onclick="cleanConsole()"></div>
+                <input type="text" id="consoleInput" />
+                <div id="sendMessage" onclick="sendConsoleMessage()">ОТПРАВИТЬ</div>
+                <textarea id="consoleOutput" ></textarea>
+                <div id="cleanConsole" onclick="cleanConsole()"></div>
              </div>
              <div class="loginBlock">
-                 <div class="autorisationStatus">Авторизируйтесь</div>
-                <input type="text" id="loginInput" />
-                <input type="text" id="passwordInput" />
-                <div id="sendAutorisation" onclick="sendAutorisation()">ОТПРАВИТЬ</div>
+                <div class="autorisationStatus"> Авторизируйтесь </div>
+                <input type="text" id="loginInput" maxlength="8" placeholder="Введите логин" />
+                <input type="password" id="passwordInput" maxlength="8" placeholder="Введите пароль" />
+                <div id="sendAutorisation" onclick="sendAutorisation()"> ОТПРАВИТЬ </div>
+                <div class="registration" onclick="registration()"> Регистрация </div>
              </div>
-             
-        
+             <div class="registrationBlock">
+                <div   class="registrationTip"> Задайте логин и пароль </div>
+                <input type="text" id="loginInputR" maxlength="8" placeholder="Введите логин"/>
+                <input type="password" id="passwordInputR1" maxlength="8" placeholder="Введите пароль"/>
+                <input type="password" id="passwordInputR2" maxlength="8" placeholder="Повторите пароль"/>
+                <div   id="sendAutorisationR" onclick="sendRegistration()"> Регистрация </div>
+                <div   class="backToLogin" onclick="backToLogin()"> Назад </div>
+             </div>
+             <div class="menuBlock" >
+                <div class="menuName"></div>
+                <div class="menuInfo">
+                    <div class="text">Добро пожаловать : </div>
+                    <div class="menuAutorisationStatus"></div>
+                </div>
+                
+                 <div class="adminMenu" >
+                     <div class="menuli">Добавить цель</div>
+                     <div class="menuli">Просмотреть существующие цели</div>
+                     <div class="menuli">Удаление целей</div>
+                     <div class="menuli">Редактирование</div>
+                     <div class="menuli">Просмотреть заказы</div>
+                     <div class="menuli">Принятие оптимальных решений методом экспертных оценок</div>
+                     <div class="menuli">Смена пароля</div>
+                     <div id="exitFromMenu" onclick="exitFromMenu()" class="menuli">Выход</div>
+                 </div>
+                 <div class="userMenu">
+                     <div class="menuli">Просмотреть существующие цели</div>
+                     <div class="menuli">Сделать заказ</div>
+                     <div class="menuli">Просмотреть заказы</div>
+                     <div class="menuli">Удаление заказов</div>
+                     <div id="exitFromMenu" onclick="exitFromMenu()" class="menuli">Выход</div>
+                 </div>
+             </div>
+             <div class="outputBlock">
+
+             </div>
         </main>
+
+        <footer>
+
+        </footer>
        
        
             
