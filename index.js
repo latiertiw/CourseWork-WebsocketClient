@@ -85,7 +85,7 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
   function backToLogin(){  // Выход из блока регистрации
       $("main .registrationBlock").toggle(200);
       $("main .loginBlock").toggle(200);
-      $(":password").css("border","2px solid rgba(0, 0, 0, 0.425)");
+      $(":password").css("border","2px solid rgba(0, 0, 0, 0.424)");
   }
 
   function exitFromMenu(){ // Выход из рабочего меню в меню авторизации
