@@ -1,0 +1,61 @@
+.addGoalMenu {
+    margin-top: 60px;
+   display: flex;
+   justify-content:center;
+    
+}
+
+.inputContainer {
+    padding: 0px 5%;
+    width: 90%;
+    display: grid;
+    min-height: 50px;
+    min-width: 50px;
+    grid-template-columns: 9fr 6fr;
+    grid-template-rows: 5fr 1fr;
+    /* background-color: rgba(0, 0, 255, 0.096); */
+}
+
+
+.inputs {
+    
+    display: flex;
+    flex-direction: column;
+    border: 0px solid yellow;
+}
+.placeholders {
+    
+    border: 0px solid rgb(0, 255, 149);
+}
+
+.sends {
+    border: 0px solid rgb(255, 0, 0);
+    grid-column: 1/3;
+   /*  padding: 0px 5%; */
+}
+.sends .menuli {
+    
+}
+
+.defaultInput {
+    font-size: 15px;
+   padding-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 50px;
+    border: 2px solid black;
+    margin: 15px 0px;
+}
+.defaultPlaceholder {
+   
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+   
+    font-size: 25px;
+    margin: 33px 0px;
+}

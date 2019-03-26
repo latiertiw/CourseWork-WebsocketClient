@@ -8,9 +8,10 @@
     <link rel="stylesheet" type="text/css" media="screen" href="main.css">
     <link rel="stylesheet" href="styles_main.css">
     <link rel="stylesheet" href="styles_footer.css">
+    <link rel="stylesheet" href="styles_menu.css">
     <script src="index.js"></script>
-   <!-- <script src="http://code.jquery.com/jquery-1.8.3.js"></script>  -->
-   <script src="jquery.js"></script>
+    <script src="input.js"></script>
+    <script src="jquery.js"></script>
 </head>
 <body>    
     <div class="wrapper">
@@ -19,7 +20,7 @@
         
 
         <header>
-            <div class="logo">COURSEWORK</div>
+            <div class="logo">Барановичский мясокомбинат</div>
         </header>
 
         <main>
@@ -52,8 +53,8 @@
                 </div>
                 
                  <div class="adminMenu" >
-                     <div class="menuli">Добавить цель</div>
-                     <div class="menuli">Просмотреть существующие цели</div>
+                     <div class="menuli" onclick = "toggleAddGoalMenu()">Добавить цель</div>
+                     <div class="menuli" onclick = "sendGoalsRequest()">Просмотреть существующие цели</div>
                      <div class="menuli">Удаление целей</div>
                      <div class="menuli">Редактирование</div>
                      <div class="menuli">Просмотреть заказы</div>
@@ -68,13 +69,40 @@
                      <div class="menuli">Удаление заказов</div>
                      <div id="exitFromMenu" onclick="exitFromMenu()" class="menuli">Выход</div>
                  </div>
+                 <div class="addGoalMenu">
+                     <div class="inputContainer">
+                         <div class="placeholders">
+                            <div class="defaultPlaceholder " style="margin-top: 16px;">Введите номер цели</div>
+                            <div class="defaultPlaceholder">Введите наименование цели</div>
+                            <div class="defaultPlaceholder">Введите описание цели</div>
+                            <div class="defaultPlaceholder">Введите оптовую цену</div>
+                            <div class="defaultPlaceholder">Введите цену за килограмм</div>
+                            <div class="defaultPlaceholder">Введите количество на складе</div>
+                         </div>
+                         <div class="inputs">
+                            <input type="text" class="defaultInput" oninput="validateNumber(this)" maxlength="8" placeholder=" Введите номер цели"/>
+                            <input type="text" class="defaultInput" maxlength="34" placeholder=" Введите наименование цели"/>
+                            <input type="text" class="defaultInput" maxlength="34" placeholder=" Введите описание цели"/>
+                            <input type="text" class="defaultInput" oninput="validateNumber(this)" maxlength="12" placeholder=" Введите оптовую цену "/>
+                            <input type="text" class="defaultInput" oninput="validateNumber(this)" maxlength="12" placeholder=" Введите цену за килограмм "/>
+                            <input type="text" class="defaultInput" oninput="validateNumber(this)" maxlength="12" placeholder=" Введите количество на складе "/>
+                         </div>
+                         <div class="sends">
+                             <div class="menuli" onclick="sendNewGoal()">Добавить</div>
+                             <div class="menuli" onclick="exitToMenu()">Назад в меню</div>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="getGoalsMenu">
+                     
+                 </div>
              </div>
              <div class="outputBlock">
-
+              
              </div>
         </main>
 
-        <footer>
+        <footer >
 
         </footer>
        
