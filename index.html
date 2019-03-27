@@ -20,7 +20,7 @@
         
 
         <header>
-            <div class="logo">Барановичский мясокомбинат</div>
+            <div class="logo">Мясокомбинат</div>
         </header>
 
         <main>
@@ -39,7 +39,7 @@
              </div>
              <div class="registrationBlock">
                 <div   class="registrationTip"> Задайте логин и пароль </div>
-                <input type="text" id="loginInputR" maxlength="8" placeholder="Введите логин"/>
+                <input type="text" id="loginInputR" maxlength="12" placeholder="Введите логин"/>
                 <input type="password" id="passwordInputR1" maxlength="8" placeholder="Введите пароль"/>
                 <input type="password" id="passwordInputR2" maxlength="8" placeholder="Повторите пароль"/>
                 <div   id="sendAutorisationR" onclick="sendRegistration()"> Регистрация </div>
@@ -52,54 +52,83 @@
                     <div class="menuAutorisationStatus"></div>
                 </div>
                 
-                 <div class="adminMenu" >
-                     <div class="menuli" onclick = "toggleAddGoalMenu()">Добавить цель</div>
-                     <div class="menuli" onclick = "sendGoalsRequest()">Просмотреть существующие цели</div>
-                     <div class="menuli">Удаление целей</div>
-                     <div class="menuli">Редактирование</div>
-                     <div class="menuli">Просмотреть заказы</div>
-                     <div class="menuli">Принятие оптимальных решений методом экспертных оценок</div>
-                     <div class="menuli">Смена пароля</div>
-                     <div id="exitFromMenu" onclick="exitFromMenu()" class="menuli">Выход</div>
-                 </div>
-                 <div class="userMenu">
-                     <div class="menuli">Просмотреть существующие цели</div>
-                     <div class="menuli">Сделать заказ</div>
-                     <div class="menuli">Просмотреть заказы</div>
-                     <div class="menuli">Удаление заказов</div>
-                     <div id="exitFromMenu" onclick="exitFromMenu()" class="menuli">Выход</div>
-                 </div>
-                 <div class="addGoalMenu">
-                     <div class="inputContainer">
-                         <div class="placeholders">
+                <div class="adminMenu" >
+                    <div class="menuli" onclick = "toggleAddGoalMenu()">Добавить цель</div>
+                    <div class="menuli" onclick = "sendGoalsRequest()">Просмотреть существующие цели</div>
+                    <div class="menuli" onclick=  "toggleDeleteGoalMenu()">Удаление целей</div>
+                    <div class="menuli">Редактирование</div>
+                    <div class="menuli">Просмотреть заказы</div>
+                    <div class="menuli">Принятие оптимальных решений методом экспертных оценок</div>
+                    <div class="menuli">Смена пароля</div>
+                    <div id="exitFromMenu" onclick="exitFromMenu()" class="menuli">Выход</div>
+                </div>
+                <div class="userMenu">
+                    <div class="menuli" onclick = "sendGoalsRequest()">Просмотреть существующие цели</div>
+                    <div class="menuli">Сделать заказ</div>
+                    <div class="menuli">Просмотреть заказы</div>
+                    <div class="menuli">Удаление заказов</div>
+                    <div id="exitFromMenu" onclick="exitFromMenu()" class="menuli">Выход</div>
+                </div>
+                <div class="addGoalMenu">
+                    <div class="inputContainer">
+                        <div class="placeholders">
                             <div class="defaultPlaceholder " style="margin-top: 16px;">Введите номер цели</div>
                             <div class="defaultPlaceholder">Введите наименование цели</div>
                             <div class="defaultPlaceholder">Введите описание цели</div>
                             <div class="defaultPlaceholder">Введите оптовую цену</div>
                             <div class="defaultPlaceholder">Введите цену за килограмм</div>
                             <div class="defaultPlaceholder">Введите количество на складе</div>
-                         </div>
-                         <div class="inputs">
+                        </div>
+                        <div class="inputs">
                             <input type="text" class="defaultInput" oninput="validateNumber(this)" maxlength="8" placeholder=" Введите номер цели"/>
                             <input type="text" class="defaultInput" maxlength="34" placeholder=" Введите наименование цели"/>
                             <input type="text" class="defaultInput" maxlength="34" placeholder=" Введите описание цели"/>
                             <input type="text" class="defaultInput" oninput="validateNumber(this)" maxlength="12" placeholder=" Введите оптовую цену "/>
                             <input type="text" class="defaultInput" oninput="validateNumber(this)" maxlength="12" placeholder=" Введите цену за килограмм "/>
                             <input type="text" class="defaultInput" oninput="validateNumber(this)" maxlength="12" placeholder=" Введите количество на складе "/>
-                         </div>
-                         <div class="sends">
-                             <div class="menuli" onclick="sendNewGoal()">Добавить</div>
-                             <div class="menuli" onclick="exitToMenu()">Назад в меню</div>
-                         </div>
+                        </div>
+                        <div class="sends">
+                            <div class="menuli" onclick="sendNewGoal()">Добавить</div>
+                            <div class="menuli" onclick="exitToMenu()">Назад в меню</div>
+                        </div>
                      </div>
                  </div>
                  <div class="getGoalsMenu">
-                     
-                 </div>
-             </div>
-             <div class="outputBlock">
+                    <!--  <div class="tableTitle">Таблица возможнх задач</div> -->
+                    <div class="goalsTable">
+                        <table class="titleTable">
+                            <tr class="titleTr">
+                                <td class="titleTd">Номер цели</td>
+                                <td class="titleTd">Наименование цели</td>
+                                <td class="titleTd">Описание цели</td>
+                                <td class="titleTd">Оптовая цена</td>
+                                <td class="titleTd">Цена за килограмм</td>
+                                <td class="titleTd">Количество на складе</td>
+                            </tr>
+                        </table>
+                        <table class="tableTable"></table>
+                    </div>
+                    <div class="menuli" onclick="exitToMenu()">Назад в меню</div>
+                </div>
+                <div class="deleteGoalMenu">
+                    <div class="inputContainer">
+                        <div class="placeholders">
+                            <div class="defaultPlaceholder " style="margin-top: 16px;">Введите номер цели</div>
+                        </div>
+                        <div class="inputs">
+                            <input type="text" class="defaultInput" oninput="validateNumber(this)" maxlength="8" placeholder=" Введите номер цели для удаления"/>
+                        </div>
+                        <div class="sends">
+                            <div class="menuli" onclick="deleteGoal()">Удалить</div>
+                            <div class="menuli" onclick="exitToMenu()">Назад в меню</div>
+                         </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="outputBlock">
               
-             </div>
+            </div>
         </main>
 
         <footer >

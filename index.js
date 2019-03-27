@@ -56,8 +56,25 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
                 exitToMenu();
               }
               if(packet.key=="goals_data"){
+                document.querySelector(".goalsTable .tableTable").innerHTML = " ";
                 let data = JSON.parse(packet.data);
-                console.log(data)
+              
+                for(let i = 0; i < data.length; i += 1){
+                  let info = [];
+                  info[0]=data[i].number; info[1]=data[i].name;
+                  info[2]=data[i].legend; info[3]=data[i].cost_opt;
+                  info[4]=data[i].cost_per_kg; info[5]=data[i].count;
+                  let tr = document.createElement("tr");
+                  tr.className = 'tableTr';
+                  for(let j = 0; j < 6; j += 1 ){
+                    let td = document.createElement("td");
+                    td.className = "tableTd";
+                    td.innerHTML = info[j];
+                    tr.append(td);
+                  }
+                  $('.goalsTable .tableTable').append(tr);
+                }
+                toggleGoalsMenu();
               }
               if(packet.key=="wrong_login_data"){
                 alert("Неправильное имя пользователя или пароль");
@@ -68,6 +85,13 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
               if(packet.key=="successful_registration"){
                 alert("Пользователь успешно зарегистрирован");
                 backToLogin();
+              }
+              if(packet.key=="successful_delete_goal"){
+                alert("Цель успешно удалена");
+                
+              }
+              if(packet.key=="wrong_delete_goal"){
+                alert("Цели с таким номером нет");
               }
           };
 
@@ -86,6 +110,9 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
       $("main .addGoalMenu").toggle(0);
       $("main .adminMenu").toggle(0);
       $("main .userMenu").toggle(0);
+      $("main .getGoalsMenu").toggle(0);
+      $("main .deleteGoalMenu").toggle(0);
+      
       //$(" .wrapper").fadeToggle(0);
       //$(" .wrapper").fadeToggle(000);
     }
@@ -125,6 +152,16 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
 
     if(state.openedMenu=="add_goal_menu"){
       $("main .addGoalMenu").toggle(200);
+      state.openedMenu="main";
+    }
+
+    if(state.openedMenu=="get_goals_menu"){
+      $("main .getGoalsMenu").slideToggle(200);
+      state.openedMenu="main";
+    }
+
+    if(state.openedMenu=="delete_goal_menu"){
+      $("main .deleteGoalMenu").slideToggle(200);
       state.openedMenu="main";
     }
   }
@@ -216,11 +253,23 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
       data.cost_per_kg = $(".addGoalMenu .inputContainer .inputs").children().eq(4).attr('value');
       data.count = $(".addGoalMenu .inputContainer .inputs").children().eq(5).attr('value');
      
-       data = JSON.stringify(data);
-       obj.data=data;
-       obj = JSON.stringify(obj);
-       socket.send(obj);
-      
+      data = JSON.stringify(data);
+      obj.data=data;
+      obj = JSON.stringify(obj);
+      socket.send(obj);
+  }
+
+  function deleteGoal(){
+    let obj = {}
+    let data = {}
+    obj.key = 'delete_goal';
+
+    data = $(".deleteGoalMenu .inputContainer .inputs").children().eq(0).attr('value');
+
+    data = JSON.stringify(data);
+    obj.data=data;
+    obj = JSON.stringify(obj);
+    socket.send(obj);
   }
 
   function sendGoalsRequest() {
@@ -245,6 +294,20 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
         else $("main .userMenu").toggle(200);
     $("main .addGoalMenu").toggle(200);
     state.openedMenu="add_goal_menu";
+  }
+
+  function toggleGoalsMenu(){
+    if(state.loginStatus=="admin"){$("main .adminMenu").toggle(200);}
+        else $("main .userMenu").toggle(200);
+    $("main .getGoalsMenu").slideToggle(200);
+    state.openedMenu="get_goals_menu";
+  }
+
+  function toggleDeleteGoalMenu(){
+    if(state.loginStatus=="admin"){$("main .adminMenu").toggle(200);}
+        else $("main .userMenu").toggle(200);
+    $("main .deleteGoalMenu").slideToggle(200);
+    state.openedMenu="delete_goal_menu";
   }
 
      

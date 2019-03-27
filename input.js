@@ -1,6 +1,4 @@
 
-
-
 function isNumberKey(evt)
        {
           var charCode = (evt.which) ? evt.which : evt.keyCode;
@@ -11,7 +9,7 @@ function isNumberKey(evt)
           return true;
        }
 
-       
+
 var validNumber = new RegExp(/^\d*\.?\d*$/);
 let lastValid="";
 function validateNumber(elem) {
