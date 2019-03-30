@@ -3,30 +3,62 @@ var state = {
   loginStatus: null,
   loginedName:null,
   openedMenu:"main",
+  responseTime:0,
+  responseStatus :false
 }
+
 
 var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
 
- 
+          setInterval(()=>{
+            let obj = {}
+            let data = {}
+            obj.key = 'test'
+            obj.data = 'test';
+            obj=JSON.stringify(obj);
+            socket.send(obj);
+          },1000);
+
+          let timer = setInterval(()=>{
+            state.responseTime += 1;
+            if(state.responseTime>=3){
+              state.responseStatus = false; 
+            }
+            if(state.responseStatus==false){
+              $(".banner").show();
+              clearInterval(timer);
+            }
+          },1000)
+
           socket.onopen = function() {
+            
               document.querySelector('.wrapper .statusBlock').innerHTML='CONNECTED'
           };
  
-
           socket.onclose = function(event) {
               if (event.wasClean) {
                 document.querySelector('.wrapper .statusBlock').innerHTML='CONNECTION CLOSED'
               } else {
                 document.querySelector('.wrapper .statusBlock').innerHTML='CONNECTION BROKEN'
               }
+              state.responseStatus = false;
           };
-
 
           socket.onmessage = function(event) {
               var logarea = document.getElementById("consoleOutput");
               logarea.value = event.data+" "+logarea.value;
               let packet = JSON.parse(event.data);
 
+              if(packet.key=="test"){
+                if($(".banner").is(":visible")){
+                  $(".banner").fadeToggle(550);
+                  setTimeout(()=>{
+                    $(".banner").hide();
+                  },350)
+                }
+                state.responseTime=0;
+                state.responseStatus = true;
+              }
               if(packet.key=="login_admin"){
                 alert("Logined as admin");
                 $(".loginBlock").toggle(300);
@@ -39,21 +71,36 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
                 state.openedMenu = "admin_menu"
 
               }
-              if(packet.key=="login_user"){
-                alert("Logined as user");
+              if(packet.key=="login_expert"){
+                alert("Logined as expert");
+                $(".loginBlock").toggle(300);
+                $("main .menuBlock").slideToggle(300);
+                $("main .expertMenu").toggle(300);
+                $(" .menuAutorisationStatus").text(()=>{return packet.data})
+                $(" .menuName").text(()=>{return "МЕНЮ ЭКСПЕРТА"})
+                state.loginStatus = "expert";
+                state.loginedName = `${packet.data}`;
+                state.openedMenu = "expert_menu"
+
+              }
+              if(packet.key=="login_client"){
+                alert("Logined as client");
                 
                 $(".loginBlock").toggle(300);
                 $("main .menuBlock").slideToggle(300);
-                $("main .userMenu").toggle(300);
+                $("main .clientMenu").toggle(300);
                 $(" .menuAutorisationStatus").text(()=>{return packet.data})
-                $(" .menuName").text(()=>{return "МЕНЮ ПОЛЬЗОВАТЕЛЯ"})
-                state.loginStatus = "user";
+                $(" .menuName").text(()=>{return "МЕНЮ КЛИЕНТА"})
+                state.loginStatus = "client";
                 state.loginedName = `${packet.data}`;
-                state.openedMenu = "user_menu"
+                state.openedMenu = "client_menu"
               }
               if(packet.key=="successful_add_goal"){
                 alert("Цель успешно добавлена");
                 exitToMenu();
+              }
+              if(packet.key=="wrong_add_goal"){
+                alert("Цель с таким номером уже существует");
               }
               if(packet.key=="goals_data"){
                 document.querySelector(".goalsTable .tableTable").innerHTML = " ";
@@ -88,18 +135,41 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
               }
               if(packet.key=="successful_delete_goal"){
                 alert("Цель успешно удалена");
-                
+                $(".deleteGoalMenu .inputContainer .inputs .defaultInput").attr('value',"");
               }
               if(packet.key=="wrong_delete_goal"){
                 alert("Цели с таким номером нет");
               }
+              if(packet.key=="wrong_toggle_redact"){
+                alert("Цели с таким номером нет");
+              }
+              if(packet.key=="successful_toggle_redact"){
+                $("main .redactGoalMenu").children().first().slideToggle(200);
+                $("main .redactGoalMenu").children().last().slideToggle(200);
+                state.openedMenu="redact_goal";
+
+                data = JSON.parse(packet.data);
+                $("main .redactGoalMenu").children().last().children().eq(1).children().eq(0).attr('value',data.number);
+                $("main .redactGoalMenu").children().last().children().eq(1).children().eq(1).attr('value',data.name);
+                $("main .redactGoalMenu").children().last().children().eq(1).children().eq(2).attr('value',data.legend);
+                $("main .redactGoalMenu").children().last().children().eq(1).children().eq(3).attr('value',data.cost_opt);
+                $("main .redactGoalMenu").children().last().children().eq(1).children().eq(4).attr('value',data.cost_per_kg);
+                $("main .redactGoalMenu").children().last().children().eq(1).children().eq(5).attr('value',data.count);
+              }
+              if(packet.key=="wrong_redact"){
+                alert("Цель с таким номером уже есть");
+              }
+              if(packet.key=="successful_redact"){
+                alert("Успешное редактирование");
+              }
           };
 
-         
           socket.onerror = function(error) {
+            state.responseStatus = false;
             document.querySelector('.wrapper .statusBlock').innerHTML='ERROR'
           };
  
+
 
 
   document.addEventListener("DOMContentLoaded", ready);
@@ -109,12 +179,25 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
       $("main .menuBlock").toggle(0);
       $("main .addGoalMenu").toggle(0);
       $("main .adminMenu").toggle(0);
-      $("main .userMenu").toggle(0);
+      $("main .clientMenu").toggle(0);
+      $("main .expertMenu").toggle(0);
       $("main .getGoalsMenu").toggle(0);
       $("main .deleteGoalMenu").toggle(0);
-      
-      //$(" .wrapper").fadeToggle(0);
-      //$(" .wrapper").fadeToggle(000);
+      $("main .redactGoalMenu").toggle(0);
+      //$(".banner").fadeToggle(100);
+      $("main .redactGoalMenu").children().last().toggle(0);
+
+       
+       setTimeout(()=>{
+        let obj = {}
+        let data ='test';
+        obj.key = 'test';
+        data = JSON.stringify(data);
+        obj.data=data;
+        obj = JSON.stringify(obj);
+        socket.send(obj)
+      },30)
+        
     }
     
 
@@ -136,7 +219,8 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
       $("main .menuBlock").slideToggle(150);
       setTimeout(()=>{
         if(state.loginStatus=="admin"){$("main .adminMenu").toggle(0);}
-        else if(state.loginStatus=="user") $("main .userMenu").toggle(0);
+        else if(state.loginStatus=="client") $("main .clientMenu").toggle(0);
+        else if(state.loginStatus=="expert") $("main .expertMenu").toggle(0);
         $(" .menuAutorisationStatus").text(()=>{return "Не авторизирован"})
         $(" .menuName").text(()=>{return "Не авторизирован"})
         state.loginStatus = null;
@@ -147,22 +231,44 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
   }
 
   function exitToMenu(){
-    if(state.loginStatus=="admin"){$("main .adminMenu").toggle(200);}
-    else $("main .userMenu").toggle(200);
+   
 
     if(state.openedMenu=="add_goal_menu"){
+      if(state.loginStatus=="admin"){$("main .adminMenu").toggle(200);} 
+      else if (state.loginStatus=="expert"){$("main .expertMenu").toggle(200);} 
+      else $("main .clientMenu").toggle(200);
       $("main .addGoalMenu").toggle(200);
       state.openedMenu="main";
     }
 
     if(state.openedMenu=="get_goals_menu"){
+      if(state.loginStatus=="admin"){$("main .adminMenu").toggle(200);}
+      else if (state.loginStatus=="expert"){$("main .expertMenu").toggle(200);} 
+      else $("main .clientMenu").toggle(200);
       $("main .getGoalsMenu").slideToggle(200);
       state.openedMenu="main";
     }
 
     if(state.openedMenu=="delete_goal_menu"){
+      if(state.loginStatus=="admin"){$("main .adminMenu").toggle(200);} 
+      else if (state.loginStatus=="expert"){$("main .expertMenu").toggle(200);} 
+      else $("main .clientMenu").toggle(200);
       $("main .deleteGoalMenu").slideToggle(200);
       state.openedMenu="main";
+    }
+
+    if(state.openedMenu=="redact_goal_menu"){
+      if(state.loginStatus=="admin"){$("main .adminMenu").toggle(200);}
+      else if (state.loginStatus=="expert"){$("main .expertMenu").toggle(200);} 
+      else $("main .clientMenu").toggle(200);
+      $("main .redactGoalMenu").slideToggle(200);
+      state.openedMenu="main";
+    }
+
+    if(state.openedMenu=="redact_goal"){
+      $("main .redactGoalMenu").children().first().slideToggle(200);
+      $("main .redactGoalMenu").children().last().slideToggle(200);
+      state.openedMenu="redact_goal_menu";
     }
   }
 
@@ -219,7 +325,10 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
   function sendRegistration() { // Отправить запрос регистрации
       let obj = {}
       let data ={}
-      obj.key = 'registration';
+      obj.key = 'registration_client';
+      if($('#checkreg').prop("checked")==true){
+       obj.key="registration_expert"
+      }
 
       data.login = $("#loginInputR").attr('value');
       data.password = $("#passwordInputR1").attr('value');
@@ -283,6 +392,35 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
     obj = JSON.stringify(obj);
     socket.send(obj);
   }
+
+  function sendRedactGoal() {
+    let obj = {}
+    let data = {}
+    obj.key = 'redact_goal';
+   
+    $("main .redactGoalMenu").children().first().slideToggle(200);
+    $("main .redactGoalMenu").children().last().slideToggle(200);
+    state.openedMenu="redact_goal_menu";
+    
+    data.number = $("main .redactGoalMenu").children().last().children().eq(1).children().eq(0).attr('value');
+    data.name = $("main .redactGoalMenu").children().last().children().eq(1).children().eq(1).attr('value');
+    data.legend = $("main .redactGoalMenu").children().last().children().eq(1).children().eq(2).attr('value');
+    data.cost_opt =  $("main .redactGoalMenu").children().last().children().eq(1).children().eq(3).attr('value');
+    data.cost_per_kg =  $("main .redactGoalMenu").children().last().children().eq(1).children().eq(4).attr('value');
+    data.count = $("main .redactGoalMenu").children().last().children().eq(1).children().eq(5).attr('value'); 
+    
+    $("main .redactGoalMenu").children().last().children().eq(1).children().eq(0).attr('value','');
+    $("main .redactGoalMenu").children().last().children().eq(1).children().eq(1).attr('value','');
+    $("main .redactGoalMenu").children().last().children().eq(1).children().eq(2).attr('value','');
+    $("main .redactGoalMenu").children().last().children().eq(1).children().eq(3).attr('value','');
+    $("main .redactGoalMenu").children().last().children().eq(1).children().eq(4).attr('value','');
+    $("main .redactGoalMenu").children().last().children().eq(1).children().eq(5).attr('value','');    
+     
+    data = JSON.stringify(data);
+    obj.data=data;
+    obj = JSON.stringify(obj);
+    socket.send(obj);
+  }
      
 
 
@@ -291,25 +429,48 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
 
   function toggleAddGoalMenu(){
     if(state.loginStatus=="admin"){$("main .adminMenu").toggle(200);}
-        else $("main .userMenu").toggle(200);
+    else if (state.loginStatus=="expert"){$("main .expertMenu").toggle(200);} 
+        else $("main .clientMenu").toggle(200);
     $("main .addGoalMenu").toggle(200);
     state.openedMenu="add_goal_menu";
   }
 
   function toggleGoalsMenu(){
     if(state.loginStatus=="admin"){$("main .adminMenu").toggle(200);}
-        else $("main .userMenu").toggle(200);
+    else if (state.loginStatus=="expert"){$("main .expertMenu").toggle(200);} 
+        else $("main .clientMenu").toggle(200);
     $("main .getGoalsMenu").slideToggle(200);
     state.openedMenu="get_goals_menu";
   }
 
   function toggleDeleteGoalMenu(){
     if(state.loginStatus=="admin"){$("main .adminMenu").toggle(200);}
-        else $("main .userMenu").toggle(200);
+    else if (state.loginStatus=="expert"){$("main .expertMenu").toggle(200);} 
+        else $("main .clientMenu").toggle(200);
     $("main .deleteGoalMenu").slideToggle(200);
     state.openedMenu="delete_goal_menu";
   }
 
+  function toggleRedactGoalMenu(){
+    if(state.loginStatus=="admin"){$("main .adminMenu").toggle(200);}
+    else if (state.loginStatus=="expert"){$("main .expertMenu").toggle(200);} 
+        else $("main .clientMenu").toggle(200);
+    $("main .redactGoalMenu").slideToggle(200);
+    state.openedMenu="redact_goal_menu";
+  }
+
+  function toggleRedact(){
+    let obj = {}
+    let data ={}
+    obj.key = 'toggle_redact';
+
+    data = $(".redactGoalMenu .inputContainer .inputs .defaultInput").attr('value');
+    data = JSON.stringify(data);
+    obj.data=data;
+    obj = JSON.stringify(obj);
+    socket.send(obj);
+
+  }
      
 
 

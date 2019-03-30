@@ -12,6 +12,7 @@ function isNumberKey(evt)
 
 var validNumber = new RegExp(/^\d*\.?\d*$/);
 let lastValid="";
+
 function validateNumber(elem) {
   if (validNumber.test(elem.value)) {
     lastValid = elem.value;

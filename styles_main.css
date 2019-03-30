@@ -142,6 +142,17 @@
    align-items: center;
 }
 
+        .checkbox{
+            color: rgba(255, 255, 255, 0.555);
+            font-size: 20px;
+        margin-left: 420px;
+        margin-top: -100px;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;       
+        }
+
         .registrationTip {
             height:30px; 
             margin-top: 10px; 
@@ -272,7 +283,14 @@
         flex-direction: column;
     }
 
-    .userMenu {
+    .clientMenu {
+      
+        margin-top: 60px;
+        display: flex;
+        justify-content:center;
+         flex-direction: column;
+    }
+    .expertMenu {
       
         margin-top: 60px;
         display: flex;
