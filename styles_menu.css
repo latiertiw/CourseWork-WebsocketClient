@@ -4,6 +4,12 @@
    justify-content:center;
     
 }
+.addOrderMenu {
+    margin-top: 60px;
+   display: flex;
+   justify-content:center;
+    
+}
 
 .inputContainer {
     padding: 0px 5%;
@@ -136,4 +142,12 @@
 }
 .redactGoalMenu .inputContainer:last-child{
     
+}
+
+
+
+
+
+.addOrderMenu .inputContainer{
+    max-height: 300px;
 }

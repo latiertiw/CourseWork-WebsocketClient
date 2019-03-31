@@ -140,6 +140,13 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
               if(packet.key=="wrong_delete_goal"){
                 alert("Цели с таким номером нет");
               }
+              if(packet.key=="wrong_delete_order"){
+                alert("Заказа на такую цель нет");
+              }
+              if(packet.key=="successful_delete_order"){
+                alert("Заказ успешно удаленн");
+                //$(".deleteGoalMenu .inputContainer .inputs .defaultInput").attr('value',"");
+              }
               if(packet.key=="wrong_toggle_redact"){
                 alert("Цели с таким номером нет");
               }
@@ -161,6 +168,15 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
               }
               if(packet.key=="successful_redact"){
                 alert("Успешное редактирование");
+              }
+              if(packet.key=="wrong_add_order"){
+                alert("Цели с таким номером не существует");
+              }
+              if(packet.key=="wrong_add_order_alt"){
+                alert("Заказ с таким номером уже есть");
+              }
+              if(packet.key=="successful_add_order"){
+                alert("Заказ добавлен");
               }
           };
 
@@ -184,7 +200,9 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
       $("main .getGoalsMenu").toggle(0);
       $("main .deleteGoalMenu").toggle(0);
       $("main .redactGoalMenu").toggle(0);
-      //$(".banner").fadeToggle(100);
+      $("main .addOrderMenu").toggle(0);
+      $("main .deleteOrderMenu").toggle(0);
+      $("main .getOrdersMenu").toggle(0);
       $("main .redactGoalMenu").children().last().toggle(0);
 
        
@@ -270,6 +288,23 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
       $("main .redactGoalMenu").children().last().slideToggle(200);
       state.openedMenu="redact_goal_menu";
     }
+
+    if(state.openedMenu=="add_order_menu"){
+      if(state.loginStatus=="admin"){$("main .adminMenu").toggle(200);}
+      else if (state.loginStatus=="expert"){$("main .expertMenu").toggle(200);} 
+      else $("main .clientMenu").toggle(200);
+      $("main .addOrderMenu").slideToggle(200);
+      state.openedMenu="main";
+    }
+
+    if(state.openedMenu=="delete_order_menu"){
+      if(state.loginStatus=="admin"){$("main .adminMenu").toggle(200);}
+      else if (state.loginStatus=="expert"){$("main .expertMenu").toggle(200);} 
+      else $("main .clientMenu").toggle(200);
+      $("main .deleteOrderMenu").slideToggle(200);
+      state.openedMenu="main";
+    }
+    
   }
 
 
@@ -368,6 +403,34 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
       socket.send(obj);
   }
 
+  function sendNewOrder() {
+    let obj = {}
+    let data ={}
+    obj.key = 'add_order';
+
+    data.number = $(".addOrderMenu .inputContainer .inputs").children().eq(0).attr('value');
+    data.count = $(".addOrderMenu .inputContainer .inputs").children().eq(1).attr('value');
+    data.name = state.loginedName;
+    data = JSON.stringify(data);
+    obj.data=data;
+    obj = JSON.stringify(obj);
+    socket.send(obj);
+  }
+
+  function deleteOrder() {
+    let obj = {}
+    let data ={}
+    obj.key = 'delete_order';
+
+    data.number = $(".deleteOrderMenu .inputContainer .inputs").children().eq(0).attr('value');
+    data.count = 0;
+    data.name = state.loginedName;
+    data = JSON.stringify(data);
+    obj.data=data;
+    obj = JSON.stringify(obj);
+    socket.send(obj);
+  }
+
   function deleteGoal(){
     let obj = {}
     let data = {}
@@ -458,6 +521,23 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
     $("main .redactGoalMenu").slideToggle(200);
     state.openedMenu="redact_goal_menu";
   }
+
+  function toggleAddOrderMenu(){
+    if(state.loginStatus=="admin"){$("main .adminMenu").toggle(200);}
+    else if (state.loginStatus=="expert"){$("main .expertMenu").toggle(200);} 
+    else $("main .clientMenu").toggle(200);
+    $("main .addOrderMenu").slideToggle(200);
+    state.openedMenu="add_order_menu";
+  }
+
+  function toggleDeleteOrderMenu(){
+    if(state.loginStatus=="admin"){$("main .adminMenu").toggle(200);}
+    else if (state.loginStatus=="expert"){$("main .expertMenu").toggle(200);} 
+    else $("main .clientMenu").toggle(200);
+    $("main .deleteOrderMenu").slideToggle(200);
+    state.openedMenu="delete_order_menu";
+  }
+
 
   function toggleRedact(){
     let obj = {}
