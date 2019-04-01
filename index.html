@@ -6,34 +6,268 @@
     <title>Coursework</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <link rel="stylesheet" href="styles_main.css">
+    <link rel="stylesheet" href="styles_footer.css">
+    <link rel="stylesheet" href="styles_menu.css">
+    <link rel="stylesheet" href="taskTable.css">
     <script src="index.js"></script>
-    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+    <script src="input.js"></script>
+    <script src="jquery.js"></script>
 </head>
 <body>    
     <div class="wrapper">
         <div class="statusBlock"></div>
         <div class="consoleToggle" onclick="toogleConsole()">Toogle Console</div>
+        <div class="banner">Нет соединия с сервером</div>
 
         <header>
-            <div class="logo">COURSEWORK</div>
+            <div class="logo">Мясокомбинат</div>
         </header>
 
         <main>
-             <div class="consoleBlock">
-               <input type="text" id="consoleInput" />
-               <div id="sendMessage" onclick="send()">ОТПРАВИТЬ</div>
-               <textarea id="consoleOutput" ></textarea>
-               <div id="cleanConsole" onclick="cleanConsole()"></div>
-             </div>
-             <div class="loginBlock">
-                 <div class="autorisationStatus">Авторизируйтесь</div>
-                <input type="text" id="loginInput" />
-                <input type="text" id="passwordInput" />
-                <div id="sendAutorisation" onclick="sendAutorisation()">ОТПРАВИТЬ</div>
-             </div>
-             
-        
+            <div class="consoleBlock">
+                <input type="text" id="consoleInput" />
+                <div id="sendMessage" onclick="sendConsoleMessage()">ОТПРАВИТЬ</div>
+                <textarea id="consoleOutput" ></textarea>
+                <div id="cleanConsole" onclick="cleanConsole()"></div>
+            </div>
+            <div class="loginBlock">
+                <div class="autorisationStatus"> Авторизируйтесь </div>
+                <input type="text" id="loginInput" maxlength="8" placeholder="Введите логин" />
+                <input type="password" id="passwordInput" maxlength="8" placeholder="Введите пароль" />
+                <div id="sendAutorisation" onclick="sendAutorisation()"> ОТПРАВИТЬ </div>
+                <div class="registration" onclick="registration()"> Регистрация </div>
+            </div>
+            <div class="registrationBlock">
+                <div class="checkbox">
+                        Зарегистрироваться как эксперт?
+                        <input id="checkreg" style="margin-left: 10px;" type="checkbox">
+                </div>
+                
+                <div   class="registrationTip"> Задайте логин и пароль </div>
+                <input type="text" id="loginInputR" maxlength="12" placeholder="Введите логин"/>
+                <input type="password" id="passwordInputR1" maxlength="8" placeholder="Введите пароль"/>
+                <input type="password" id="passwordInputR2" maxlength="8" placeholder="Повторите пароль"/>
+                <div   id="sendAutorisationR" onclick="sendRegistration()"> Регистрация </div>
+                <div   class="backToLogin" onclick="backToLogin()"> Назад </div>
+            </div>
+            <div class="menuBlock" >
+                <div class="menuName">
+                </div>
+                <div class="menuInfo">
+                    <div class="text">Добро пожаловать : </div>
+                    <div class="menuAutorisationStatus"></div>
+                </div>
+                <div class="adminMenu" >
+                    <div class="menuli" onclick = "toggleAddGoalMenu()">Добавить цель</div>
+                    <div class="menuli" onclick = "sendGoalsRequest()">Просмотреть существующие цели</div>
+                    <div class="menuli" onclick = "toggleDeleteGoalMenu()">Удаление целей</div>
+                    <div class="menuli" onclick = "toggleRedactGoalMenu()">Редактирование</div>
+                    <div class="menuli" onclick="sendOrdersAdminRequest()">Просмотреть заказы</div>
+                    <div class="menuli" onclick="sendOptTaskRequest()">Принятие оптимальных решений методом экспертных оценок</div>
+                  <!--   <div class="menuli">Смена пароля</div> -->
+                    <div id="exitFromMenu" onclick="exitFromMenu()" class="menuli">Выход</div>
+                </div>
+                <div class="clientMenu">
+                    <div class="menuli" onclick = "sendGoalsRequest()">Просмотреть существующие цели</div>
+                    <div class="menuli" onclick="toggleAddOrderMenu()">Сделать заказ</div>
+                    <div class="menuli" onclick="sendOrdersRequest()">Просмотреть заказы</div>
+                    <div class="menuli" onclick="toggleDeleteOrderMenu()">Удаление заказов</div>
+                    <div id="exitFromMenu" onclick="exitFromMenu()" class="menuli">Выход</div>
+                </div>
+                <div class="expertMenu">
+                        <div class="menuli" onclick = "sendGoalsRequest()">Просмотреть существующие цели</div>
+                        <div class="menuli" onclick = "sendOrdersAdminRequest()">Просмотреть заказы предприятия</div>
+                        <div class="menuli" onclick = "toggleAddMarkMenu()">Поставить отметку цели </div>
+                        <div id="exitFromMenu" onclick="exitFromMenu()" class="menuli">Выход</div>
+                </div>
+                <div class="addGoalMenu">
+                    <div class="inputContainer">
+                        <div class="placeholders">
+                            <div class="defaultPlaceholder " style="margin-top: 16px;">Введите номер цели</div>
+                            <div class="defaultPlaceholder">Введите наименование цели</div>
+                            <div class="defaultPlaceholder">Введите описание цели</div>
+                            <div class="defaultPlaceholder">Введите оптовую цену</div>
+                            <div class="defaultPlaceholder">Введите цену за килограмм</div>
+                            <div class="defaultPlaceholder">Введите количество на складе</div>
+                        </div>
+                        <div class="inputs">
+                            <input type="text" class="defaultInput" oninput="validateNumber(this)" maxlength="8" placeholder=" Введите номер цели"/>
+                            <input type="text" class="defaultInput" maxlength="34" placeholder=" Введите наименование цели"/>
+                            <input type="text" class="defaultInput" maxlength="34" placeholder=" Введите описание цели"/>
+                            <input type="text" class="defaultInput" oninput="validateNumber(this)" maxlength="12" placeholder=" Введите оптовую цену "/>
+                            <input type="text" class="defaultInput" oninput="validateNumber(this)" maxlength="12" placeholder=" Введите цену за килограмм "/>
+                            <input type="text" class="defaultInput" oninput="validateNumber(this)" maxlength="12" placeholder=" Введите количество на складе "/>
+                        </div>
+                        <div class="sends">
+                            <div class="menuli" onclick="sendNewGoal()">Добавить</div>
+                            <div class="menuli" onclick="exitToMenu()">Назад в меню</div>
+                        </div>
+                     </div>
+                </div>
+                <div class="getGoalsMenu">
+                    <!--  <div class="tableTitle">Таблица возможнх задач</div> -->
+                    <div class="goalsTable">
+                        <table class="titleTable">
+                            <tr class="titleTr">
+                                <td class="titleTd">Номер цели</td>
+                                <td class="titleTd">Наименование цели</td>
+                                <td class="titleTd">Описание цели</td>
+                                <td class="titleTd">Оптовая цена</td>
+                                <td class="titleTd">Цена за килограмм</td>
+                                <td class="titleTd">Количество на складе</td>
+                            </tr>
+                        </table>
+                        <table class="tableTable"></table>
+                    </div>
+                    <div class="menuli" onclick="exitToMenu()">Назад в меню</div>
+                </div>
+                <div class="deleteGoalMenu">
+                    <div class="inputContainer">
+                        <div class="placeholders">
+                            <div class="defaultPlaceholder " style="margin-top: 16px;">Введите номер цели</div>
+                        </div>
+                        <div class="inputs">
+                            <input type="text" class="defaultInput" oninput="validateNumber(this)" maxlength="8" placeholder=" Введите номер цели для удаления"/>
+                        </div>
+                        <div class="sends">
+                            <div class="menuli" onclick="deleteGoal()">Удалить</div>
+                            <div class="menuli" onclick="exitToMenu()">Назад в меню</div>
+                         </div>
+                    </div>
+                </div>
+                <div class="redactGoalMenu">
+                    <div class="inputContainer">
+                        <div class="placeholders">
+                            <div class="defaultPlaceholder " style="margin-top: 16px;">Введите номер цели</div>
+                        </div>
+                        <div class="inputs">
+                            <input type="text" class="defaultInput" oninput="validateNumber(this)" maxlength="8" placeholder="Номер цели для редактирования"/>
+                        </div>
+                        <div class="sends">
+                            <div class="menuli" onclick="toggleRedact()">Редактировать</div>
+                            <div class="menuli" onclick="exitToMenu()">Назад в меню</div>
+                         </div>
+                    </div>
+                    <div class="inputContainer">
+                        <div class="placeholders">
+                            <div class="defaultPlaceholder " style="margin-top: 16px;">Введите номер цели</div>
+                            <div class="defaultPlaceholder">Введите наименование цели</div>
+                            <div class="defaultPlaceholder">Введите описание цели</div>
+                            <div class="defaultPlaceholder">Введите оптовую цену</div>
+                            <div class="defaultPlaceholder">Введите цену за килограмм</div>
+                            <div class="defaultPlaceholder">Введите количество на складе</div>
+                        </div>
+                        <div class="inputs">
+                            <input type="text" class="defaultInput" oninput="validateNumber(this)" maxlength="8" placeholder=" Введите номер цели"/>
+                            <input type="text" class="defaultInput" maxlength="34" placeholder=" Введите наименование цели"/>
+                            <input type="text" class="defaultInput" maxlength="80" placeholder=" Введите описание цели"/>
+                            <input type="text" class="defaultInput" oninput="validateNumber(this)" maxlength="12" placeholder=" Введите оптовую цену "/>
+                            <input type="text" class="defaultInput" oninput="validateNumber(this)" maxlength="12" placeholder=" Введите цену за килограмм "/>
+                            <input type="text" class="defaultInput" oninput="validateNumber(this)" maxlength="12" placeholder=" Введите количество на складе "/>
+                        </div>
+                        <div class="sends">
+                            <div class="menuli" onclick="sendRedactGoal()">Сохранить</div>
+                            <div class="menuli" onclick="exitToMenu()">Назад в меню</div>
+                        </div>
+                     </div>
+                </div>
+                <div class="addOrderMenu">
+                    <div class="inputContainer">
+                        <div class="placeholders">
+                            <div class="defaultPlaceholder" style="margin-top: 16px;">Введите номер цели</div>
+                            <div class="defaultPlaceholder ">Введите Количество</div>
+                        </div>
+                        <div class="inputs">
+                            <input type="text" class="defaultInput" oninput="validateNumber(this)" maxlength="8" placeholder=" Введите номер цели для заказа"/>
+                            <input type="text" class="defaultInput" oninput="validateNumber(this)" maxlength="4" placeholder=" Введите количество"/>
+                        </div>
+                        <div class="sends">
+                            <div class="menuli" onclick="sendNewOrder()">Сделать заказ</div>
+                            <div class="menuli" onclick="exitToMenu()">Назад в меню</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="deleteOrderMenu">
+                    <div class="inputContainer">
+                        <div class="placeholders">
+                            <div class="defaultPlaceholder" style="margin-top: 16px;">Введите номер цели</div>
+                        </div>
+                        <div class="inputs">
+                            <input type="text" class="defaultInput" oninput="validateNumber(this)" maxlength="8" placeholder=" Введите номер цели для удаления"/>   
+                        </div>
+                        <div class="sends">
+                            <div class="menuli" onclick="deleteOrder()">Удалить</div>
+                            <div class="menuli" onclick="exitToMenu()">Назад в меню</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="getOrdersMenu">
+                        <!--  <div class="tableTitle">Таблица возможнх задач</div> -->
+                        <div class="ordersTable">
+                            <table class="titleTable">
+                                <tr class="titleTr">
+                                    <td class="titleTd">Номер цели</td>
+                                    <td class="titleTd">Наименование цели</td>
+                                    <td class="titleTd">Размер заказа</td>
+                                </tr>
+                            </table>
+                            <table class="tableTable"></table>
+                        </div>
+                        <div class="menuli" onclick="exitToMenu()">Назад в меню</div>
+                </div>
+                <div class="getOrdersAdminMenu">
+                    <!--  <div class="tableTitle">Таблица возможнх задач</div> -->
+                    <div class="ordersTable">
+                        <table class="titleTable">
+                            <tr class="titleTr">
+                                <td class="titleTd">Номер цели</td>
+                                <td class="titleTd">Наименование цели</td>
+                                <td class="titleTd">Размер заказа</td>
+                            </tr>
+                        </table>
+                        <table class="tableTable"></table>
+                    </div>
+                    <div class="menuli" onclick="exitToMenu()">Назад в меню</div>
+                </div>
+                <div class="addMarkMenu">
+                    <div class="inputContainer">
+                        <div class="placeholders">
+                            <div class="defaultPlaceholder" style="margin-top: 16px;">Введите номер цели</div>
+                            <div class="defaultPlaceholder ">Введите Оценку</div>
+                        </div>
+                        <div class="inputs">
+                            <input type="text" class="defaultInput" oninput="validateNumber(this)" maxlength="8" placeholder=" Введите номер цели"/>
+                            <input type="text" class="defaultInput" oninput="validateNumber(this)" maxlength="4" placeholder=" Введите оценку"/>
+                        </div>
+                        <div class="sends">
+                            <div class="menuli" onclick="sendNewMark()">Поставить</div>
+                            <div class="menuli" onclick="exitToMenu()">Назад в меню</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="optTask">
+                    <div class="ordersTable">
+                        <table class="titleTable">
+                            <tr class="titleTr">
+                                <td class="titleTd">Номер цели</td>
+                                <td class="titleTd">Наименование</td>
+                                <td class="titleTd">Показатель</td>
+                            </tr>
+                        </table>
+                        <table class="tableTable"></table>
+                    </div>
+                    <div class="menuli" onclick="exitToMenu()">Назад в меню</div>
+                </div>
+                 
+
+            </div>
+            <div class="outputBlock"></div>
         </main>
+
+        <footer>
+
+        </footer>
        
        
             

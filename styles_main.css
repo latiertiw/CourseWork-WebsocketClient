@@ -1,0 +1,314 @@
+.consoleBlock {
+    margin-top: 15px;
+    display: flex;
+    width: 100%;
+    align-items: center; 
+ justify-content: flex-end;
+}
+
+            #consoleInput {
+              background: rgb(235, 235, 235);
+                height: 150px;
+                width: 565px;
+                font-size: 30px;
+                padding-left: 15px;
+            
+            }
+
+            #sendMessage {
+                font-size: 15px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 1px solid black;
+                height: 153px;
+                width: 100px;
+                cursor: pointer;
+            background-color: white;
+            }
+            #sendMessage:hover{
+                background-color: rgb(170, 169, 169);
+            }
+
+            #consoleOutput {
+                
+                margin-left: 100px;
+                box-sizing: border-box;
+            padding: 7px;
+                display: block;
+                height: 155px;
+                width: 450px;
+            
+                border: 3px solid rgb(0, 0, 0);
+            font-size: 20px;
+            }
+            #cleanConsole {
+            
+            height:153px ;
+            width: 40px;
+            margin-left: 5px;
+            background-color: #fff;
+            }
+            #cleanConsole:hover{
+                cursor: pointer;
+                background-color: rgba(248, 206, 206, 0.993);
+            }
+
+
+.loginBlock{
+    display: flex;
+    margin-top: 45px;
+    width: 100%;
+    height: 250px;
+    background-color: rgba(142, 143, 142, 0.603);
+    align-items: center;
+   
+}
+
+
+        .autorisationStatus {
+            margin-left: 40px;
+            border-bottom: 3px solid rgba(0, 0, 0, 0.336);
+            border-radius: 5px;
+            border-top: 3px solid rgba(0, 0, 0, 0.37);
+            font-size: 25px;
+            color: white;
+                height: 140px;
+                font-size: 35px;
+                width: 320px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+               
+            }
+            #loginInput {
+                border: 2px solid rgba(0, 0, 0, 0.534);
+                font-size: 20px;
+                padding-left: 20px;
+            margin-left: 90px;
+            height: 60px;
+            width: 250px;
+           
+            }
+            #passwordInput {
+                border: 2px solid rgba(0, 0, 0, 0.534);
+                font-size: 20px;
+                padding-left: 20px;
+                margin-left: 20px;
+                height: 60px;
+                width: 250px;
+            }
+            #sendAutorisation {
+                border: 2px solid rgba(0, 0, 0, 0.534);
+                margin-left: 40px;
+                background-color: #fff;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 60px;
+                width: 120px;
+                
+            }
+            #sendAutorisation:hover {
+                background-color: rgba(255, 255, 255, 0.356);
+                cursor: pointer;
+
+            }
+            .registration {
+                position: absolute;
+              margin-left: 89%;
+                display: flex;
+                box-sizing: border-box;
+                border: 3px solid rgb(168, 167, 167);
+                justify-content: center;
+                align-items: center;
+                height: 40px;
+                width: 220px;
+                background: rgb(255, 255, 255);
+                transform:rotate(90deg) 
+            }
+            .registration:hover {
+                box-sizing: border-box;
+             border: 3px solid rgb(241, 232, 232);
+               cursor: pointer;
+            }
+
+.registrationBlock{
+    display: flex;
+    flex-direction: column;
+    margin-top: 45px;
+    background-color: rgba(142, 143, 142, 0.603);
+   justify-content: center;
+   align-items: center;
+}
+
+        .checkbox{
+            color: rgba(255, 255, 255, 0.555);
+            font-size: 20px;
+        margin-left: 420px;
+        margin-top: -100px;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;       
+        }
+
+        .registrationTip {
+            height:30px; 
+            margin-top: 10px; 
+            font-size: 30px; 
+            color:white;
+            display:flex; 
+            justify-content: center; 
+            margin-bottom: 35px;
+        }
+
+        .backToLogin {
+            padding-bottom: 15px;
+            font-size: 25px;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 6px;
+            color: rgba(255, 255, 255, 0.582);
+        }
+        .backToLogin:hover {
+            color: white;
+           cursor: pointer;
+           transform: scale(1.1);
+          
+        }
+        #loginInputR {
+            font-size: 20px;
+            padding-left: 10px;
+            width: 400px;
+            height: 40px;
+            border: 2px solid rgba(0, 0, 0, 0.425);
+        }
+
+        #passwordInputR1 {
+            margin-top: 10px;
+            font-size: 20px;
+            padding-left: 10px;
+            border: 2px solid rgba(0, 0, 0, 0.425);
+            height: 40px;
+            width: 400px;
+        }
+        #passwordInputR2 {
+            margin-top: 10px;
+            font-size: 20px;
+            padding-left: 10px;
+            border: 2px solid rgba(0, 0, 0, 0.425);
+            height: 40px;
+            width: 400px;
+        }
+
+        #sendAutorisationR {
+            background-color: rgba(255, 255, 255, 0.514);
+            font-size: 20px;
+            height: 30px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 15px 0px;
+            border-radius: 5px;
+            display: flex;
+            width: 420px;
+            justify-content: center;
+            align-items: center;
+        }
+        #sendAutorisationR:hover {
+            background-color: rgba(255, 255, 255, 0.795);
+            cursor: pointer;
+        }
+
+
+.menuBlock {
+    margin-top: 55px;
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 80%;
+    min-height: 390px;
+    background: linear-gradient(90deg,rgba(255, 255, 255, 0.486),rgba(128, 128, 128, 0.568));
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 60px;
+    justify-content: flex-start;
+    align-items: center;
+   
+}
+
+    .menuName {
+        box-sizing: border-box;
+        width: 100%;
+        height: 120px;
+        font-size: 33px;
+        font-weight: 600;
+        border: 3px solid black;
+        color: white;
+        background-color: rgb(0, 0, 0);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .menuInfo {
+        
+        display: flex;
+        align-items: center;
+        width: 100%;
+        width: 100%;
+        height: 70px;
+       
+       box-sizing: border-box;
+       border-right: 0px solid black;
+       border-left: 0px solid black;
+       border-bottom: 3px solid black;
+        
+    }
+    
+            .menuAutorisationStatus {
+            margin-left: 35px;
+            font-size: 38px;
+            background-color: rgba(30, 143, 255, 0.007);
+            min-width: 450px;
+            padding-left: 35px;
+            }
+            .text {
+                padding-left: 30px;
+                font-size: 30px;
+            }
+
+    .adminMenu {
+        margin-top: 60px;
+       display: flex;
+       justify-content:center;
+        flex-direction: column;
+    }
+
+    .clientMenu {
+      
+        margin-top: 60px;
+        display: flex;
+        justify-content:center;
+         flex-direction: column;
+    }
+.expertMenu {
+      
+        margin-top: 60px;
+        display: flex;
+        justify-content:center;
+         flex-direction: column;
+    }
+    .menuli {
+        padding: 0px 10px;
+        background-color: rgba(255, 255, 255, 0.521);
+        margin: 5px;
+       height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .menuli:hover{
+    background: rgba(255, 255, 255, 0.836);
+    border: 1px solid white;
+    cursor: pointer;
+    box-sizing: border-box;
+    }
