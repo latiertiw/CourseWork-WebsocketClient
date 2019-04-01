@@ -1,0 +1,27 @@
+.optTask .titleTr{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 3fr 6fr;
+}
+
+.optTask .tableTable tr{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 3fr 6fr;
+}
+
+.tableTdSpecial {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tdOptBorder{
+    display: flex;
+    justify-content: flex-start;
+    margin-left: -90px;
+    width: 400px;
+    height: 40px;
+    border: 1px solid rgb(255, 255, 255);
+}
+

@@ -136,6 +136,9 @@
 .deleteGoalMenu .inputContainer{
     max-height: 200px;
 }
+.addMarkMenu .inputContainer{
+    max-height: 300px;
+}
 
 .redactGoalMenu .inputContainer:first-child{
     max-height: 200px;
@@ -150,4 +153,23 @@
 
 .addOrderMenu .inputContainer{
     max-height: 300px;
+}
+.deleteOrderMenu .inputContainer{
+    max-height: 200px;
+}
+
+
+
+
+.ordersTable {
+    margin-top: 25px;
+    width: 1000px;
+    min-height: 300px;
+    max-height: 500px;
+    overflow: scroll;
+    border: 2px solid black;
+}
+
+.ordersTable table{
+    width: 100%;
 }

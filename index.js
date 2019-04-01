@@ -178,6 +178,101 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
               if(packet.key=="successful_add_order"){
                 alert("Заказ добавлен");
               }
+              if(packet.key=="orders_data"){
+                let data = JSON.parse(packet.data);
+                document.querySelector(".getOrdersMenu .ordersTable .tableTable").innerHTML = " ";
+
+                for(let i = 0; i < data.length; i += 1){
+                  let info = [];
+                  info[0]=data[i].number; info[1]=data[i].name;
+                  info[2]=data[i].count;
+                  let tr = document.createElement("tr");
+                  tr.className = 'tableTr';
+                  for(let j = 0; j < 3; j += 1 ){
+                    let td = document.createElement("td");
+                    td.className = "tableTd";
+                    td.innerHTML = info[j];
+                    tr.append(td);
+                  }
+                    
+                  $('.getOrdersAdminMenu .ordersTable .tableTable').append(tr);
+                  let trc = document.createElement("tr");
+                  trc=tr.cloneNode('deep');
+                  //tre=tr.cloneNode('deep');
+                  $('.getOrdersMenu .ordersTable .tableTable').append(trc);
+                  
+                }
+                if(state.loginStatus=="client"){toggleOrdersMenu();}
+                else{}
+              }
+              if(packet.key=="orders_admin_data"){
+                let data = JSON.parse(packet.data);
+                document.querySelector(".getOrdersAdminMenu .ordersTable .tableTable").innerHTML = " ";
+                
+                for(let i = 0;i<data.length;i+=1 ){
+                  setTimeout(()=>{
+                    let tr = document.createElement("tr");
+                    tr.className = 'tableTr';
+                    let td = document.createElement("td");
+                    td.className = "tableTd";
+                    td.innerHTML = "Клиент: "+data[i].login;
+                    tr.append(td);
+                    $('.getOrdersAdminMenu .ordersTable .tableTable').append(tr);
+                    sendOrdersRequestAlt(data[i].login);
+                  },i*30
+                  )
+                }
+                toggleOrdersAdminMenu();
+              }
+              if(packet.key=="successful_add_mark"){
+                alert("Оценка успешно добавлена");
+              }
+              if(packet.key=="wrong_add_mark"){
+                alert("Цели с таким номером не существует");
+              }
+              if(packet.key=="opt_task"){
+                data = JSON.parse(packet.data);
+                document.querySelector(".optTask .ordersTable .tableTable").innerHTML = " ";
+
+
+                for(let i = 0; i < data.length; i += 1){
+                  let info = [];
+                  info[0]=data[i].number; info[1]=data[i].name;
+                  info[2]=data[i].value;
+                  let tr = document.createElement("tr");
+                  tr.className = 'tableTr';
+                  for(let j = 0; j < 3; j += 1 ){
+                    let td = document.createElement("td");
+                    if(j==2){
+                      td.className = "tableTd";
+                      let border = document.createElement("div");
+                      if(info[2]==0) border.style="border:1px solid red;"
+                      let score = document.createElement("div");
+                      score.style ="width:"+(info[2]*4)+"px;height:100%; background-color: rgb("+(255 -(info[2]*3)) +", "+(info[2]*info[2]) +", 0);"
+                      
+                      border.className="tdOptBorder"
+                      border.append(score);
+                      td.append(border);
+                    }
+                    else{
+                    td.className = "tableTd";
+                    td.innerHTML = info[j];
+                    }
+                    tr.append(td);
+                  }
+                    
+                  $('.optTask .ordersTable .tableTable').append(tr);
+                 
+                 
+                  
+                }
+
+
+
+
+                toggleOptTaskMenu();
+              }
+              
           };
 
           socket.onerror = function(error) {
@@ -203,6 +298,9 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
       $("main .addOrderMenu").toggle(0);
       $("main .deleteOrderMenu").toggle(0);
       $("main .getOrdersMenu").toggle(0);
+      $("main .getOrdersAdminMenu").toggle(0);
+      $("main .addMarkMenu").toggle(0);
+      $("main .optTask").toggle(0);
       $("main .redactGoalMenu").children().last().toggle(0);
 
        
@@ -304,6 +402,45 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
       $("main .deleteOrderMenu").slideToggle(200);
       state.openedMenu="main";
     }
+
+    if(state.openedMenu=="get_orders_menu"){
+      if(state.loginStatus=="admin"){$("main .adminMenu").toggle(200);}
+      else if (state.loginStatus=="expert"){$("main .expertMenu").toggle(200);} 
+      else $("main .clientMenu").toggle(200);
+      $("main .getOrdersMenu").slideToggle(200);
+      state.openedMenu="main";
+    }
+
+    if(state.openedMenu=="get_orders_admin_menu"){
+      if(state.loginStatus=="admin"){$("main .adminMenu").toggle(200);}
+      else if (state.loginStatus=="expert"){
+        $("main .expertMenu").toggle(200);
+      } 
+      else {
+        
+        $("main .clientMenu").toggle(200);}
+      $("main .getOrdersAdminMenu").slideToggle(200);
+     
+      state.openedMenu="main";
+    }
+
+    if(state.openedMenu=="add_mark_menu"){
+      if(state.loginStatus=="admin"){$("main .adminMenu").toggle(200);} 
+      else if (state.loginStatus=="expert"){$("main .expertMenu").toggle(200);} 
+      else $("main .clientMenu").toggle(200);
+      $("main .addMarkMenu").slideToggle(200);
+      state.openedMenu="main";
+    }
+
+    if(state.openedMenu=="opt_task_menu"){
+      if(state.loginStatus=="admin"){$("main .adminMenu").toggle(200);} 
+      else if (state.loginStatus=="expert"){$("main .expertMenu").toggle(200);} 
+      else $("main .clientMenu").toggle(200);
+      $("main .optTask").slideToggle(200);
+      state.openedMenu="main";
+    }
+
+    
     
   }
 
@@ -456,6 +593,42 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
     socket.send(obj);
   }
 
+  function sendOrdersRequest() {
+    let obj = {}
+    let data = {}
+    obj.key = 'orders_request';
+    data=state.loginedName;
+
+    data = JSON.stringify(data);
+    obj.data=data;
+    obj = JSON.stringify(obj);
+    socket.send(obj);
+  }
+
+  function sendOrdersRequestAlt(str) {
+    let obj = {}
+    let data = {}
+    obj.key = 'orders_request';
+    data=str;
+
+    data = JSON.stringify(data);
+    obj.data=data;
+    obj = JSON.stringify(obj);
+    socket.send(obj);
+  }
+
+  function sendOrdersAdminRequest() {
+    let obj = {}
+    let data = {}
+    obj.key = 'orders_admin_request';
+   
+
+    data = JSON.stringify(data);
+    obj.data=data;
+    obj = JSON.stringify(obj);
+    socket.send(obj);
+  }
+
   function sendRedactGoal() {
     let obj = {}
     let data = {}
@@ -484,7 +657,32 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
     obj = JSON.stringify(obj);
     socket.send(obj);
   }
+
+  function sendNewMark() {
+    let obj = {}
+    let data ={}
+    obj.key = 'add_mark';
+
+    data.number = $(".addMarkMenu .inputContainer .inputs").children().eq(0).attr('value');
+    data.score = $(".addMarkMenu .inputContainer .inputs").children().eq(1).attr('value');
+    data.name = state.loginedName;
+    data = JSON.stringify(data);
+    obj.data=data;
+    obj = JSON.stringify(obj);
+    socket.send(obj);
+  }
      
+  function sendOptTaskRequest(){
+    let obj = {}
+    let data = {}
+    obj.key = 'opt_task_request';
+    data=state.loginedName;
+
+    data = JSON.stringify(data);
+    obj.data=data;
+    obj = JSON.stringify(obj);
+    socket.send(obj);
+  }
 
 
 
@@ -504,6 +702,22 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
         else $("main .clientMenu").toggle(200);
     $("main .getGoalsMenu").slideToggle(200);
     state.openedMenu="get_goals_menu";
+  }
+
+  function toggleOrdersMenu(){
+    if(state.loginStatus=="admin"){$("main .adminMenu").toggle(200);}
+    else if (state.loginStatus=="expert"){$("main .expertMenu").toggle(200);} 
+        else $("main .clientMenu").toggle(200);
+    $("main .getOrdersMenu").slideToggle(200);
+    state.openedMenu="get_orders_menu";
+  }
+
+  function toggleOrdersAdminMenu(){
+    if(state.loginStatus=="admin"){$("main .adminMenu").toggle(200);}
+    else if (state.loginStatus=="expert"){$("main .expertMenu").toggle(200);} 
+        else $("main .clientMenu").toggle(200);
+    $("main .getOrdersAdminMenu").slideToggle(200);
+    state.openedMenu="get_orders_admin_menu";
   }
 
   function toggleDeleteGoalMenu(){
@@ -538,6 +752,13 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
     state.openedMenu="delete_order_menu";
   }
 
+  function toggleAddMarkMenu(){
+    if(state.loginStatus=="admin"){$("main .adminMenu").toggle(200);}
+    else if (state.loginStatus=="expert"){$("main .expertMenu").toggle(200);} 
+    else $("main .clientMenu").toggle(200);
+    $("main .addMarkMenu").slideToggle(200);
+    state.openedMenu="add_mark_menu";
+  }
 
   function toggleRedact(){
     let obj = {}
@@ -550,6 +771,14 @@ var socket = new WebSocket("ws://localhost:8080/project_war_exploded/my");
     obj = JSON.stringify(obj);
     socket.send(obj);
 
+  }
+
+  function toggleOptTaskMenu(){
+    if(state.loginStatus=="admin"){$("main .adminMenu").toggle(200);}
+    else if (state.loginStatus=="expert"){$("main .expertMenu").toggle(200);} 
+    else $("main .clientMenu").toggle(200);
+    $("main .optTask").slideToggle(200);
+    state.openedMenu="opt_task_menu";
   }
      
 
