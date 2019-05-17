@@ -1,0 +1,136 @@
+
+.addGoalMenu {
+    height: 420px;
+    margin-top:25px;
+   display: flex;
+   justify-content:center;
+    
+}
+
+.getOrdersAdminMenu {
+  max-height: 400px;  
+}
+
+.redactGoalMenu {
+    max-height: 500px;
+}
+
+.addOrderMenu {
+   display: flex;
+   justify-content:center;
+}
+
+
+
+
+
+.getOrdersAdminMenu .inputContainer{
+    
+}
+
+.deleteGoalMenu .inputContainer{
+    max-height: 200px;
+    padding-top: 40px;
+}
+
+.deleteRealGoalMenu .inputContainer{
+    max-height: 200px;
+    padding-top: 40px;
+}
+  
+.addMarkMenu .inputContainer{
+    padding-top: 00px;
+    max-height: 140px;
+}
+
+.redactGoalMenu .inputContainer:first-child{
+    max-height: 200px;
+    padding-top: 40px;
+}
+
+.redactGoalMenu .inputContainer{
+
+}
+.redactGoalMenu .inputContainer:last-child{
+    overflow: scroll;
+    max-height: 420px;
+}
+
+.addOrderMenu .inputContainer{
+    padding-top: 40px;
+    max-height: 250px;
+}
+.deleteOrderMenu .inputContainer{
+    padding-top: 40px;
+    max-height: 200px;
+}
+
+
+
+
+
+
+.inputContainer {
+    padding: 0px 5%;
+    width: 90%;
+    display: grid;
+    min-height: 50px;
+    min-width: 50px;
+    grid-template-columns: 9fr 6fr;
+    grid-template-rows: 5fr 1fr;
+}
+
+.inputs {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sends {
+    grid-column: 1/3;
+}
+
+.defaultInput {
+    font-size: 15px;
+   padding-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 40px;
+    border: 2px solid rgb(218, 218, 218);
+    margin: 2px 0px;
+}
+
+.defaultTextAreaInput {
+  
+    font-size: 15px;
+   padding-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 250px;
+    border: 2px solid rgb(218, 218, 218);
+    margin: 2px 0px;
+    margin-top: 15px;
+    padding-top: 10px;
+}
+
+.defaultPlaceholder {
+   color:  rgb(170, 170, 170);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 25px;
+    font-size: 25px;
+    margin: 25px 0px;
+}
+
+
+
+
+
+
+

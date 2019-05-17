@@ -1,20 +1,24 @@
 {
-  "name": "coursework-websocketclient",
+  "name": "electronapp",
+  "productName": "CourseWork Client App",
   "version": "1.0.0",
   "description": "",
-  "main": "index.html",
+  "main": "start.js",
   "scripts": {
+    "build-mac":"electron-packager . --overwrite --platform=darwin --arch=x64 --icon=img/icon.png --prune=true --out=release-builds",
+    "start": "electron .",
+    "build-win": "electron-packager . dist --platform=win32 --arch=x64 --version=0.33.3",
+    
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/latiertiw/CourseWork-WebsocketClient.git"
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/latiertiw/CourseWork-WebsocketClient/issues"
+  "dependencies": {
+    "electron": "^5.0.1",
+    "electron-packager": "^13.1.1"
   },
-  "homepage": "https://github.com/latiertiw/CourseWork-WebsocketClient#readme",
-  "dependencies": {}
+  "devDependencies": {
+    "electron": "^5.0.1",
+    "electron-packager": "^13.1.1"
+  }
 }

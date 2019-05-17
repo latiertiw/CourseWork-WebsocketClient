@@ -20,3 +20,4 @@ function validateNumber(elem) {
     elem.value = lastValid;
   }
 }
+

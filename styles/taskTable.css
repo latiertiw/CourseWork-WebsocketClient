@@ -1,0 +1,54 @@
+.optTask .titleTr{
+    width: 100%;
+    display: flex;
+  /*   grid-template-columns: 1fr 6fr 5fr; */
+    padding-right: 0px;
+}
+
+.optTask .tableTable tr{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 3fr 6fr;
+}
+
+.tableTdSpecial {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tdOptBorder{
+    display: flex;
+    justify-content: flex-start;
+   /*  margin-left: -90px; */
+    width: 360px;
+    height: 40px;
+    border: 1px solid rgb(255, 255, 255);
+}
+
+
+
+.legcontainer{
+    max-width: 100%;
+    overflow: scroll;
+height: 100px;
+width: 100%;
+border: 1px solid black;
+display: flex;
+justify-content: space-around;
+}
+
+.leg{
+    font-size: 12px;
+text-align: center;
+border: 1px solid rgb(206, 205, 205);
+padding: 5px;
+padding-top: 10px;
+min-width: 50px;
+max-width: 200px;
+}
+.color{
+    margin-top: 5px;
+    height: 20px;
+    width: 100%;
+}

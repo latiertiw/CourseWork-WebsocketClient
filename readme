@@ -1,0 +1,6 @@
+first - npm install
+npm -i -g electron
+
+start - npm start
+build for windows - npm build-win
+build for mac - npm build-mac
